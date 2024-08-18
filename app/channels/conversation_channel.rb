@@ -6,4 +6,8 @@ class ConversationChannel < ApplicationCable::Channel
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
   end
+
+  def speak
+    ConversationChannel.broadcast_to current_user.id, content: 'Success'
+  end
 end
