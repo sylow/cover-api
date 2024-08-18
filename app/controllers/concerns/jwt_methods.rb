@@ -13,13 +13,13 @@ module JwtMethods
 
   def current_user
     if decoded_token
-        @current_user ||= User.find_by(id: decoded_token['user_id'])
+      @current_user ||= User.find_by(id: decoded_token['user_id'])
     end
   end
 
   def authorized
-      unless !!current_user
-        render json: { message: 'Please log in' }, status: :unauthorized
-      end
+    unless !!current_user
+      render json: { message: 'Please log in' }, status: :unauthorized
+    end
   end
 end
