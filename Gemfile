@@ -19,7 +19,7 @@ gem "puma", "~> 5.0"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
+gem "redis", "~> 4.0"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -67,5 +67,4 @@ gem 'dotenv', groups: [:development, :test]
 gem 'rack-cors' #provides support for Cross-Origin Resource Sharing (CORS) for Rack compatible web applications.
 gem 'bcrypt', '~> 3.1' 
 gem 'jwt', '~> 2.5'
-gem 'rack-cors'
 gem 'active_model_serializers', '~> 0.10.12'
