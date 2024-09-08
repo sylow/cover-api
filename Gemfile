@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.2"
+ruby "3.1.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.8"
@@ -62,9 +62,11 @@ group :test do
   gem "webdrivers"
 
 end
-gem 'dotenv', groups: [:development, :test]
+gem 'dotenv', '~> 3.0', groups: [:development, :test]
 
 gem 'rack-cors' #provides support for Cross-Origin Resource Sharing (CORS) for Rack compatible web applications.
-gem 'bcrypt', '~> 3.1' 
+gem 'bcrypt', '~> 3.1'
 gem 'jwt', '~> 2.5'
 gem 'active_model_serializers', '~> 0.10.12'
+gem 'active_interaction', '~> 5.3'
+gem 'aasm'

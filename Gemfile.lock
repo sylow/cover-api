@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (5.5.0)
+      concurrent-ruby (~> 1.0)
     actioncable (7.0.8.4)
       actionpack (= 7.0.8.4)
       activesupport (= 7.0.8.4)
@@ -46,6 +48,9 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_interaction (5.3.0)
+      activemodel (>= 5.2, < 8)
+      activesupport (>= 5.2, < 8)
     active_model_serializers (0.10.14)
       actionpack (>= 4.1)
       activemodel (>= 4.1)
@@ -96,7 +101,7 @@ GEM
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
-    dotenv (2.8.1)
+    dotenv (3.1.2)
     erubi (1.13.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -226,12 +231,14 @@ PLATFORMS
   arm64-darwin-20
 
 DEPENDENCIES
+  aasm
+  active_interaction (~> 5.3)
   active_model_serializers (~> 0.10.12)
   bcrypt (~> 3.1)
   bootsnap
   capybara
   debug
-  dotenv
+  dotenv (~> 3.0)
   jbuilder
   jwt (~> 2.5)
   pg (~> 1.1)
@@ -246,7 +253,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 2.7.2p137
+   ruby 3.1.1p18
 
 BUNDLED WITH
    2.4.20

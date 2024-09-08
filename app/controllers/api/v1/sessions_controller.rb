@@ -5,7 +5,7 @@ class Api::V1::SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
     unless user&.authenticate(params[:password])
-      render(json: { error: 'unauthorized' }, status: :unauthorized) and return
+      render(json: { error: "We can't find this email and password combination" }, status: :unauthorized) and return
     end
 
     token = JsonWebToken.encode(user_id: user.id)

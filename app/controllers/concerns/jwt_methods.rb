@@ -1,4 +1,9 @@
 module JwtMethods
+  extend ActiveSupport::Concern
+  included do
+    before_action :authenticate
+  end
+  
   def decoded_token
     return nil unless header = request.headers['Authorization']
 
@@ -17,7 +22,7 @@ module JwtMethods
     end
   end
 
-  def authorized
+  def authenticate
     unless !!current_user
       render json: { message: 'Please log in' }, status: :unauthorized
     end
