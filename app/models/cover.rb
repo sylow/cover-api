@@ -1,5 +1,6 @@
 class Cover < ApplicationRecord
   belongs_to :user
+  has_many :credit_transactions, as: :transactionable
 
   include AASM
   aasm do
@@ -7,6 +8,8 @@ class Cover < ApplicationRecord
     state :running
     state :completed
 
+    # We need to add a guard here to ensure
+    # that user has enough credits
     event :run do
       transitions from: :created, to: :running
     end
