@@ -73,3 +73,4 @@ gem 'aasm'
 gem 'money-rails', '~> 1.12'
 gem 'stripe_event'
 gem 'sidekiq'
+gem "ruby-openai"

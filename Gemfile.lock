@@ -104,6 +104,14 @@ GEM
       reline (>= 0.3.8)
     dotenv (3.1.2)
     erubi (1.13.0)
+    event_stream_parser (1.0.0)
+    faraday (2.11.0)
+      faraday-net_http (>= 2.0, < 3.4)
+      logger
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (3.3.0)
+      net-http
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.5)
@@ -142,6 +150,9 @@ GEM
       money (~> 6.13)
       railties (>= 3.0)
     msgpack (1.7.2)
+    multipart-post (2.4.1)
+    net-http (0.4.1)
+      uri
     net-imap (0.3.7)
       date
       net-protocol
@@ -205,6 +216,10 @@ GEM
       io-console (~> 0.5)
     rexml (3.3.5)
       strscan
+    ruby-openai (7.1.0)
+      event_stream_parser (>= 0.3.0, < 2.0.0)
+      faraday (>= 1)
+      faraday-multipart (>= 1)
     rubyzip (2.3.2)
     selenium-webdriver (4.9.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -233,6 +248,7 @@ GEM
     timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    uri (0.13.1)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -270,6 +286,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 7.0.8)
   redis (~> 4.0)
+  ruby-openai
   selenium-webdriver
   sidekiq
   sprockets-rails

@@ -10,17 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_13_095404) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_15_191355) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "chat_logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "model"
+    t.jsonb "messages"
+    t.jsonb "response"
+    t.text "summary"
+    t.boolean "success"
+    t.string "error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_chat_logs_on_user_id"
+  end
+
   create_table "covers", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.text "project"
-    t.text "resume"
+    t.text "job_description"
+    t.text "resume_content"
     t.string "aasm_state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "resume_id", null: false
+    t.jsonb "preferences", default: {}
+    t.text "cover"
+    t.index ["resume_id"], name: "index_covers_on_resume_id"
     t.index ["user_id"], name: "index_covers_on_user_id"
   end
 
@@ -72,6 +89,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_13_095404) do
     t.integer "credits", default: 0
   end
 
+  add_foreign_key "chat_logs", "users"
+  add_foreign_key "covers", "resumes"
   add_foreign_key "covers", "users"
   add_foreign_key "credit_transactions", "users"
   add_foreign_key "purchases", "packages"
