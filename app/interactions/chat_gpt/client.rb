@@ -2,7 +2,7 @@ module ChatGpt
   class Client < ActiveInteraction::Base
     ResponseStruct = Struct.new(:response, :summary, :success, :error)
 
-    string :model, default: 'gpt-4o'
+    string :model, default: 'gpt-4-1106-preview'
     array :messages
     object :user, optional: true  # Add user if you want to log per-user
 
@@ -16,6 +16,7 @@ module ChatGpt
         api_response = openai_client.chat(
           parameters: {
             model: model,
+            response_format: { type: "json_object" },
             messages: messages,
             temperature: 0.7
           }
