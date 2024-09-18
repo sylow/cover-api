@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_15_191355) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_17_053205) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_15_191355) do
     t.string "error"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "loggable_type"
+    t.bigint "loggable_id"
+    t.index ["loggable_type", "loggable_id"], name: "index_chat_logs_on_loggable"
     t.index ["user_id"], name: "index_chat_logs_on_user_id"
   end
 

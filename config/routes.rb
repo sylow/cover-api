@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   mount StripeEvent::Engine, at: '/webhooks'
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 
   namespace :api do
     namespace :v1 do
       resources :resumes
       resources :covers do
-        post :pay
+        post :run
       end
       resources :transactions
       resources :sessions do

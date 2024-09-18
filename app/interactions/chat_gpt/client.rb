@@ -1,10 +1,8 @@
 module ChatGpt
   class Client < ActiveInteraction::Base
-    ResponseStruct = Struct.new(:response, :summary, :success, :error)
-
-    string :model, default: 'gpt-4-1106-preview'
+    string :model, default: Rails.env.development? ? 'gpt-3.5-turbo' : 'gpt-4-1106-preview'
     array :messages
-    object :user, optional: true  # Add user if you want to log per-user
+    object :loggable, class: ActiveRecord::Base
 
     def execute
       openai_client = OpenAI::Client.new
@@ -16,7 +14,6 @@ module ChatGpt
         api_response = openai_client.chat(
           parameters: {
             model: model,
-            response_format: { type: "json_object" },
             messages: messages,
             temperature: 0.7
           }
@@ -26,16 +23,10 @@ module ChatGpt
         summary = api_response.dig("choices", 0, "message", "content") || "No content available"
 
         # Log the successful request and response
-        log_request(success: true, response: api_response, summary: summary)
-
-        # Return a structured response
-        ResponseStruct.new(api_response, summary, true, nil)
+        return log_request(success: true, response: api_response, summary: summary)
       rescue => e
         # Log the failed request
-        log_request(success: false, response: api_response, error: e.message)
-
-        # Return a structured response indicating failure
-        ResponseStruct.new(api_response, nil, false, e.message)
+        return log_request(success: false, response: api_response, error: e.message)
       end
     end
 
@@ -43,8 +34,8 @@ module ChatGpt
 
     # Method to log the request and response
     def log_request(success:, response: nil, summary: nil, error: nil)
-      ChatLog.create!(
-        user: user,
+      loggable.chat_logs.create(
+        user: loggable.user,
         model: model,
         messages: messages,
         response: response,

@@ -7,7 +7,6 @@ class Api::V1::CoversController < ApplicationController
 
   def create
     outcome = Covers::Create.run(params[:cover].merge(user: current_user))
-
     if outcome.valid?
       render json: outcome.result, status: :created
     else
@@ -15,17 +14,12 @@ class Api::V1::CoversController < ApplicationController
     end
   end
 
-  def pay
-    outcome = Covers::Pay.run(user: current_user, id: params[:cover_id])
-    return_result(outcome, :ok)
-  end
-
-  private
-  def return_result(outcome, status=:ok)
+  def run
+    outcome = Covers::Run.run(cover: current_user.covers.find(params[:cover_id]))
     if outcome.valid?
-      render json: outcome.result, status: status
+      render json: outcome.result, status: :ok
     else
-      render json: outcome.errors.full_messages, status: :unprocessable_entity
+      render json: outcome.errors, status: :unprocessable_entity
     end
   end
 end

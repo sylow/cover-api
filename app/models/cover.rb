@@ -3,6 +3,7 @@ class Cover < ApplicationRecord
   belongs_to :user
   belongs_to :resume
   has_one :credit_transaction, as: :transactionable
+  has_many :chat_logs, as: :loggable
 
   # Validations
   validates :job_description, presence: true, length: { minimum: 5 }
@@ -11,17 +12,12 @@ class Cover < ApplicationRecord
   include AASM
   aasm do
     state :created, initial: true
-    state :paid
     state :running
     state :completed
     state :failed
 
-    event :pay do
-      transitions from: :created, to: :paid, guard: :has_credits?
-    end
-
-    event :run do
-      transitions from: :paid, to: :running #, before_enter: :run_job
+    event :run do #todo, add a transaction log
+      transitions from: :created, to: :running, guard: :has_credits?
     end
 
     event :fail do
@@ -34,14 +30,9 @@ class Cover < ApplicationRecord
   end
 
   def has_credits?
-    user.credits > 0
-  end
+    return true if user.credits > 0
 
-  def run_job
-    if cover.cover.present?
-      errors.add(:cover, 'has already been run')
-    end
-
-    console.log('Running job')
+    errors.add(:base, "not enough credits to complete the payment")
+    return false
   end
 end
