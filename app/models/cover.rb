@@ -1,4 +1,6 @@
 class Cover < ApplicationRecord
+  before_create :set_resume_content
+
   # Associations
   belongs_to :user
   belongs_to :resume
@@ -35,4 +37,9 @@ class Cover < ApplicationRecord
     errors.add(:base, "not enough credits to complete the payment")
     return false
   end
+
+  def set_resume_content
+    self.resume_content = resume.resume
+  end
+
 end
