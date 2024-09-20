@@ -1,3 +1,3 @@
 class UserSerializer < BaseSerializer
-  attributes :email, :credits
+  attributes :id, :email, :credits
 end

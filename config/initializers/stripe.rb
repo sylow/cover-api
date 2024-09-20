@@ -4,10 +4,8 @@ StripeEvent.signing_secret = ENV['STRIPE_SIGNING_SECRET'] # e.g. whsec_...
 class CheckoutCompleted
   def call(event)
     object = event.data.object
-    if user = User.find_by(id: object.client_reference_id)
-      user.purchases.create(credits: object.metadata["token_count"], price_cents: object.amount_total)
-      ActionCable.server.broadcast "ChatChannel_#{user.id}", {type: 'token', type: 'token_purchased'}
-    end
+    # raise "#{object.client_reference_id} - #{object.amount_subtotal}".inspect
+    Purchases::Paid.run!(id: Integer(object.client_reference_id), price_cents: Integer(object.amount_subtotal))
   end
 end
 
