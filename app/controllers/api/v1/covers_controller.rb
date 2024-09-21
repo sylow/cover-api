@@ -2,7 +2,7 @@ class Api::V1::CoversController < ApplicationController
   include JwtMethods
 
   def index
-    render json: current_user.covers
+    render json: current_user.covers.order(created_at: :desc), status: :ok
   end
 
   def create
