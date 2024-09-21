@@ -7,15 +7,15 @@ module ChatGpt
     def execute
       add_messages
       fetch_ai_output
-      send_notification
 
       if errors.any?  # houston we have a problem so stop
-        # todo we need to notify developer to take an action
         cover.fail! if cover.may_fail?
         return
+      else
+        use_credit
       end
 
-      use_credit
+      send_notification
     end
 
     private
@@ -51,6 +51,7 @@ module ChatGpt
 
     def use_credit
       cover.user.decrement!(:credits)
+      Rails.logger.info(cover.user.inspect)
       cover.user.credit_transactions.create!(amount: -1, description: "Used 1 credit to generate cover letters", transactionable: cover, transaction_type: "debit")
     end
 
