@@ -5,7 +5,7 @@ class Api::V1::UsersController < ApplicationController
   def create
     user = User.create(email: params[:email], password: params[:password])
     unless user.valid?
-      render(json:  user.errors.full_messages , status: :unprocessable_entity) and return
+      render(json:  user.errors.full_messages.join("\n") , status: :unprocessable_entity) and return
     end
 
     token = JsonWebToken.encode(user_id: user.id)
