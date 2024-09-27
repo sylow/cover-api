@@ -39,7 +39,7 @@ class Cover < ApplicationRecord
   end
 
   def set_resume_content
-    self.resume_content = resume.resume
+    self.resume_content = resume.content
   end
 
 end

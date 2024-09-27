@@ -6,7 +6,7 @@ class GenerateCoverJob < ApplicationJob
     cover = Cover.find(cover_id)
 
     # Run your logic for generating the cover
-    ChatGpt::GenerateCoverLetter.run(cover: cover)
+    Covers::Generate.run(cover: cover)
 
   end
 end

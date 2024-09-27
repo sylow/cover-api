@@ -2,7 +2,7 @@ module Covers
   class Create < ActiveInteraction::Base
     object :user
     integer :resume_id
-    string :resume_content, default: -> { user.resumes.find(resume_id).resume }
+    string :resume_content, default: -> { user.resumes.find(resume_id).content }
     string :job_description
     hash :preferences, default: {} do
       string :formality, default: 'formal'

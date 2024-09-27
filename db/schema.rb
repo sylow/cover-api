@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_19_113603) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_27_100435) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,7 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_19_113603) do
   create_table "resumes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title"
-    t.text "resume"
+    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_resumes_on_user_id"
