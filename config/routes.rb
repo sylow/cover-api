@@ -6,7 +6,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :resumes
+      resources :resumes do
+        post :enhance
+      end
+
       resources :covers do
         post :run
       end

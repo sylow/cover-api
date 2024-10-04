@@ -288,7 +288,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.8)
-  redis (~> 4.0)
+  redis (~> 4.2)
   ruby-openai
   selenium-webdriver
   sidekiq

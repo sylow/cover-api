@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_27_100435) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_04_072642) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_100435) do
     t.index ["user_id"], name: "index_credit_transactions_on_user_id"
   end
 
+  create_table "enhanced_resumes", force: :cascade do |t|
+    t.bigint "resume_id", null: false
+    t.text "content"
+    t.jsonb "preferences"
+    t.string "aasm_state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "kind", default: "enhance"
+    t.index ["resume_id"], name: "index_enhanced_resumes_on_resume_id"
+  end
+
   create_table "packages", force: :cascade do |t|
     t.string "name"
     t.integer "credits"
@@ -98,6 +109,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_100435) do
   add_foreign_key "covers", "resumes"
   add_foreign_key "covers", "users"
   add_foreign_key "credit_transactions", "users"
+  add_foreign_key "enhanced_resumes", "resumes"
   add_foreign_key "purchases", "packages"
   add_foreign_key "purchases", "users"
   add_foreign_key "resumes", "users"
