@@ -17,9 +17,14 @@ Rails.application.routes.draw do
       resources :sessions do
         get :refresh, on: :collection
       end
-      resources :users
+
+      resources :users do
+        post :forgot, on: :collection
+      end
+
       resources :me, only: :index
       resources :packages, only: :index
+      resources :password_resets
     end
   end
 end

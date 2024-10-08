@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+  body
+    h1 Password Reset Instructions
+
+    p
+      | Hello #{@user.email},
+
+    p
+      | We received a request to reset the password for your account. If you made this request, please click the link below to reset your password:
+
+    p
+      a href="#{@reset_url}" Reset your password
+
+    p
+      | If you didn’t request this, you can safely ignore this email.
+
+    p
+      | Thanks,
+      br
+      | The Team

@@ -65,6 +65,6 @@ module Resumes
         A user will be seeking your assistance to refine their resume so that it impressively showcases their skills and
         experiences. Once the user provides their current resume, your task is to thoughtfully enhance and return the
         revised version, ensuring it adheres to the best industry standards and practices. Please focus solely on delivering
-        the polished resume."
+        the polished resume and avoid returning anything else then resume content."
   end
 end

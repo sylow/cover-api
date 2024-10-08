@@ -14,4 +14,9 @@ class Api::V1::UsersController < ApplicationController
                    exp: time.strftime("%m-%d-%Y %H:%M"),
                    email: user.email }, status: :ok
   end
+
+  def forgot
+    render head: :ok
+  end
+
 end

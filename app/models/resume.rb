@@ -7,5 +7,5 @@ class Resume < ApplicationRecord
 
   # Validations
   validates :title, presence: true, length: { minimum: 5 }
-  validates :content, presence: true, length: { minimum: 500 }
+  validates :content, presence: true, length: { minimum: 500, maximum: 7000 }
 end
