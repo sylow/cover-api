@@ -78,6 +78,9 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     base64 (0.2.0)
     bcrypt (3.1.20)
     bindex (0.8.1)
@@ -288,6 +291,7 @@ DEPENDENCIES
   aasm
   active_interaction (~> 5.3)
   active_model_serializers (~> 0.10.12)
+  annotate
   bcrypt (~> 3.1)
   bootsnap
   capybara

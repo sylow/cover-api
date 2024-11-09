@@ -1,13 +1,13 @@
 class Api::V1::PasswordResetsController < ApplicationController
   # POST /api/v1/password_resets
   def create
-    user = User.find_by(email: params[:email])
-    if user
+
+    if user = User.find_by(email: params[:email])
       token = Passwords::GenerateToken.run(user: user).result
       # Ideally, you would trigger an email service here
-      PasswordResetMailer.with(user: user, token: token).reset_email.deliver_later
+      PasswordResetMailer.reset_email(user.id, token).deliver_later
     end
-    # We always say okey
+    # We always say okey, we just lie if we can't find the email. We dont want them to scan our sytem for emails.
     render json: { message: 'Password reset instructions have been sent to your email if email is in our database.' }, status: :ok
   end
 

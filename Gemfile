@@ -76,3 +76,7 @@ gem 'sidekiq'
 gem "ruby-openai"
 gem "letter_opener", group: :development
 gem 'slim'
+
+group :development do
+  gem 'annotate'
+end
