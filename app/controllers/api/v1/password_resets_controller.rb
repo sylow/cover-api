@@ -1,14 +1,12 @@
 class Api::V1::PasswordResetsController < ApplicationController
-  # POST /api/v1/password_resets
   def create
+    result = Passwords::GenerateToken.run(email: params[:email], kind: 'password_reset') # Replace `current_user` with your user instance as appropriate
 
-    if user = User.find_by(email: params[:email])
-      token = Passwords::GenerateToken.run(user: user).result
-      # Ideally, you would trigger an email service here
-      PasswordResetMailer.reset_email(user.id, token).deliver_later
+    if result.valid?
+      render json: { message: 'Password reset instructions have been sent to your email if email is in our database.' }, status: :ok
+    else
+      render json: { error: result.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
-    # We always say okey, we just lie if we can't find the email. We dont want them to scan our sytem for emails.
-    render json: { message: 'Password reset instructions have been sent to your email if email is in our database.' }, status: :ok
   end
 
   # GET /api/v1/password_resets/:token
@@ -24,18 +22,11 @@ class Api::V1::PasswordResetsController < ApplicationController
 
   # PUT /api/v1/password_resets/:token
   def update
-    password_reset_token = PasswordResetToken.find_by(token: params[:token])
-
-    if password_reset_token&.is_valid?
-      user = password_reset_token.user
-      if user.update(password: params[:password])
-        password_reset_token.destroy # Invalidate the token
-        render json: { message: 'Password has been successfully reset' }, status: :ok
-      else
-        render json: { error: 'Failed to update password', details: user.errors.full_messages }, status: :unprocessable_entity
-      end
+    result = Passwords::Reset.run(token: params[:token], password: params[:password])
+    if result.valid?
+      render(json: result.result, status: :ok) and return
     else
-      render json: { error: 'Token is invalid or expired' }, status: :unprocessable_entity
+      render json: { error: result.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
   end
 end

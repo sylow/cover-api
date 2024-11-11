@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: resumes
+#
+#  content :text
+#  title   :string
+#  user_id :bigint           not null, indexed
+#
+# Indexes
+#
+#  index_resumes_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 class Resume < ApplicationRecord
   belongs_to :user
   has_many :covers

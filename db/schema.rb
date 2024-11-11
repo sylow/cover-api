@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_08_105107) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_09_134714) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,16 +78,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_105107) do
     t.string "stripe_id"
   end
 
-  create_table "password_reset_tokens", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "token", null: false
-    t.datetime "expires_at", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["token"], name: "index_password_reset_tokens_on_token", unique: true
-    t.index ["user_id"], name: "index_password_reset_tokens_on_user_id"
-  end
-
   create_table "purchases", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "package_id", null: false
@@ -107,12 +97,25 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_105107) do
     t.index ["user_id"], name: "index_resumes_on_user_id"
   end
 
+  create_table "user_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "token", null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "kind", default: "password_reset_token", null: false
+    t.index ["token"], name: "index_user_tokens_on_token", unique: true
+    t.index ["user_id"], name: "index_user_tokens_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "credits", default: 0
+    t.boolean "email_confirmed", default: false, null: false
+    t.datetime "confirmation_sent_at"
   end
 
   add_foreign_key "chat_logs", "users"
@@ -120,8 +123,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_105107) do
   add_foreign_key "covers", "users"
   add_foreign_key "credit_transactions", "users"
   add_foreign_key "enhanced_resumes", "resumes"
-  add_foreign_key "password_reset_tokens", "users"
   add_foreign_key "purchases", "packages"
   add_foreign_key "purchases", "users"
   add_foreign_key "resumes", "users"
+  add_foreign_key "user_tokens", "users"
 end
