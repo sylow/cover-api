@@ -20,9 +20,12 @@ Rails.application.routes.draw do
 
       resources :users do
         post :forgot, on: :collection
+        post :verify_email, on: :collection
       end
 
-      resources :me, only: :index
+      resources :me do
+        post :send_verification_email, on: :collection
+      end
       resources :packages, only: :index
       resources :password_resets
     end

@@ -7,14 +7,10 @@ module Passwords
 
     def execute
       password_reset_token = find_password_reset_token
-      Rails.logger.info token.inspect
-      Rails.logger.info password.inspect
-      Rails.logger.info password_reset_token.inspect
-      Rails.logger.info  password_reset_token&.is_valid?
       if password_reset_token && password_reset_token.is_valid?
         user = password_reset_token.user
         if user.update(password: password)
-          # password_reset_token.destroy # Invalidate the token after successful reset
+          password_reset_token.destroy # Invalidate the token after successful reset
           return { message: 'Password has been successfully reset' }
         else
           errors.add(:base, 'Failed to update password')

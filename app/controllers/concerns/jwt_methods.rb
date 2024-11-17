@@ -13,7 +13,7 @@ module JwtMethods
     end
     return nil if identifier != 'Bearer' || !token
 
-    decoded = JsonWebToken.decode(token)
+    JsonWebToken.decode(token)
   end
 
   def current_user

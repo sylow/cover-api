@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+  body
+    h1 Verify Your Email
+
+    p
+      | Hello #{@user.email},
+
+    p
+      | We received a request to verify your email address. If you made this request, please click the link below to reset your password:
+
+    p
+      a href="#{@link}" Verify Email
+
+    p
+      | If you didn’t request this, you can safely ignore this email.
+
+    p
+      | Thanks,
+      br
+      | The Team

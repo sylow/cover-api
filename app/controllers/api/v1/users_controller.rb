@@ -15,8 +15,18 @@ class Api::V1::UsersController < ApplicationController
                    email: user.email }, status: :ok
   end
 
+
+  def verify_email
+    result = Users::VerifyEmail.run(token: params[:token])
+    if result.valid?
+      render json: { message: 'Email verified' }, status: :ok
+    else
+      render json: { message: result.errors.full_messages.join(', ') }, status: :unprocessable_entity
+    end
+  end
+
   def forgot
-    render head: :ok
+    head :ok
   end
 
 end

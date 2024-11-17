@@ -13,5 +13,10 @@ Package.create([
   { name: "Career Booster", credits: 50, price_cents: 3500,
     description: 'Supercharge your job search with 50 credits to generate cover letters for numerous opportunities.',
     stripe_id: 'test_4gwg2O2Y17MR17abIM'
-  }
+  },
+  {
+    name: "Email Verification", credits: 1, price_cents: 0,
+    description: 'Free credit when you verify your email address.',
+    stripe_id: '----'
+  },
 ])

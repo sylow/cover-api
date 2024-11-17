@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :purchases, dependent: :destroy
   has_many :credit_transactions, dependent: :destroy
   has_many :password_reset_tokens, -> { where(kind: :password_reset_token)}, class_name: 'UserToken', dependent: :destroy
+  has_many :email_verification_tokens, -> { where(kind: :email_verification_token)}, class_name: 'UserToken', dependent: :destroy
 
   validates :email, uniqueness: true
   validates :password, presence: true, length: { minimum: 6}
