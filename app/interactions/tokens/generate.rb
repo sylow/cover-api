@@ -1,10 +1,12 @@
 module Tokens
   class Generate < ActiveInteraction::Base
     string :email
-    string :kind, in: %w[password_reset email_verification]
+    string :kind, in: %w[password_reset_token email_verification_token]
 
     def execute
-      return errors.add(:base, "User not found") unless user
+      return errors.add(:user, "not found") unless user
+
+      return errors.add(:user, "has already verified email address") if user.email_confirmed && kind == 'email_verification_token'
 
       token_record = create_token_record
       return errors.add(:user, token_record.errors.full_messages.join(', ')) unless token_record
@@ -25,7 +27,7 @@ module Tokens
     end
 
     def model
-      kind == 'password_reset' ? user.password_reset_tokens : user.email_verification_tokens
+      user.user_tokens.where(kind: kind)
     end
 
     def generate_token
@@ -34,9 +36,9 @@ module Tokens
 
     def send_token_email(token_record)
       case kind
-      when 'password_reset'
+      when 'password_reset_token'
         PasswordResetMailer.reset_email(user.id, token_record.token).deliver_later
-      when 'email_verification'
+      when 'email_verification_token'
         EmailVerificationMailer.send_verification_email(user.id, token_record.token).deliver_later
       end
     end

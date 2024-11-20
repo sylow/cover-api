@@ -14,7 +14,7 @@ module Users
 
     private
     def find_valid_token
-      tokenRecord = UserToken.find_by(token: token, kind: 'email_verification')
+      tokenRecord = UserToken.find_by(token: token, kind: 'email_verification_token')
       return tokenRecord if tokenRecord && tokenRecord.valid?
     end
 

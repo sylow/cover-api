@@ -27,7 +27,7 @@ Rails.application.routes.draw do
         post :send_verification_email, on: :collection
       end
       resources :packages, only: :index
-      resources :password_resets
+      resources :password_resets, param: :token
     end
   end
 end

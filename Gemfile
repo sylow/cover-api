@@ -82,3 +82,8 @@ group :development do
   gem 'annotate'
 end
 # gem 'i18n', '1.14.6'
+#
+group :development, :test do
+  gem 'fabrication'
+  gem 'faker'
+end

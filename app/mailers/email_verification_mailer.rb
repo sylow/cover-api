@@ -4,7 +4,7 @@ class EmailVerificationMailer < ApplicationMailer
 
     @link = link(token)
 
-    mail(to: @user.email, subject: 'Password Reset Instructions')
+    mail(to: @user.email, subject: 'Email Verification Instructions')
   end
 
   private

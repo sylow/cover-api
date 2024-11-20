@@ -6,7 +6,7 @@ class Api::V1::MeController < ApplicationController
   end
 
   def send_verification_email
-    result = Tokens::Generate.run(email: current_user.email, kind: 'email_verification')
+    result = Tokens::Generate.run(email: current_user.email, kind: 'email_verification_token')
     if result.valid?
       render(json: {message: 'We sent you a verification email, please check your email address'}, status: :ok) and return
     else

@@ -22,6 +22,7 @@ class UserToken < ApplicationRecord
 
   # Validations
   validates :token, presence: true, uniqueness: true
+  validates :kind, presence: true, inclusion: { in: %w(password_reset_token email_verification_token) }
   validates :expires_at, presence: true
 
   # Scopes

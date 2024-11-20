@@ -110,6 +110,9 @@ GEM
     dotenv (3.1.2)
     erubi (1.13.0)
     event_stream_parser (1.0.0)
+    fabrication (2.31.0)
+    faker (3.5.1)
+      i18n (>= 1.8.11, < 2)
     faraday (2.11.0)
       faraday-net_http (>= 2.0, < 3.4)
       logger
@@ -297,6 +300,8 @@ DEPENDENCIES
   capybara
   debug
   dotenv (~> 3.0)
+  fabrication
+  faker
   jbuilder
   jwt (~> 2.5)
   letter_opener
