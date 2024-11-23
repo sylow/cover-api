@@ -17,6 +17,7 @@ class UsersFlowTest < ActionDispatch::IntegrationTest
   end
 
   test "complete email verification flow" do
+    Fabricate(:email_verification_package)
     # Step 1: Request verification email
     assert_enqueued_with(job: ActionMailer::MailDeliveryJob) do
       post "/api/v1/me/send_verification_email",

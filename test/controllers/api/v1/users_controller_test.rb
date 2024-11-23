@@ -8,6 +8,7 @@ module Api
       end
 
       test "should verify email with valid token" do
+        Fabricate(:email_verification_package)
         user = Fabricate(:user)
         token = Fabricate(:user_token, user: user, kind: 'email_verification_token')
 

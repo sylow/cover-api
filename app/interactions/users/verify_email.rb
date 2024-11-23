@@ -7,6 +7,7 @@ module Users
       return errors.add(:user, 'has already verified email address') if tokenRecord.user.email_confirmed
 
       verify_email(tokenRecord)
+      add_email_verification_credits(tokenRecord)
       destroy_token(tokenRecord)
 
       tokenRecord.user
@@ -24,6 +25,13 @@ module Users
 
     def destroy_token(tokenRecord)
       tokenRecord.destroy
+    end
+
+    def add_email_verification_credits(tokenRecord)
+      # Add credits to user account for verifying email
+      package = Package.find_by(price_cents: 0)
+      tokenRecord.user.credit_transactions.create!(amount: package.credits, description: 'Token purchase', transactionable: package, transaction_type: 'purchase')
+      tokenRecord.user.increment!(:credits, package.credits)
     end
   end
 end

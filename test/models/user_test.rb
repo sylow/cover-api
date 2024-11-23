@@ -104,6 +104,7 @@ class UserTest < ActiveSupport::TestCase
 
   # Email verification tests
   test "should verify email with valid token" do
+    Fabricate(:email_verification_package)
     # Generate a verification token first
     token_outcome = Tokens::Generate.run(
       email: @user.email,
