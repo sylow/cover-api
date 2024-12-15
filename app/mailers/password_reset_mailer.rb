@@ -9,6 +9,6 @@ class PasswordResetMailer < ApplicationMailer
 
   private
   def reset_url(token)
-    "/sessions/password_reset?token=#{token}" # Adjust the URL to match your front-end routes
+    "#{Rails.configuration.client_url}/sessions/password_reset?token=#{token}" # Adjust the URL to match your front-end routes
   end
 end
