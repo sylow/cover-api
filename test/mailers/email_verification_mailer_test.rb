@@ -13,7 +13,7 @@ class EmailVerificationMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal ['info@jobscraftsman.com'], email.from
+    assert_equal ['info@jobcraftsman.com'], email.from
     assert_equal [@user.email], email.to
     assert_equal 'Email Verification Instructions', email.subject
     assert_includes email.body.to_s, @token

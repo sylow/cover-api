@@ -4,7 +4,7 @@ class PasswordResetMailerTest < ActionMailer::TestCase
   def setup
     @user = Fabricate(:user)
     @token = SecureRandom.hex(10)
-    @default_from = "info@jobscraftsman.com"
+    @default_from = "info@jobcraftsman.com"
     @frontend_url = "http://example.com"
     ENV['FRONTEND_URL'] = @frontend_url
   end
