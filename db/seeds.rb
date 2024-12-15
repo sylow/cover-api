@@ -1,6 +1,7 @@
 User.create({
   email: 'admin@example.com', password: '12345678'
 })
+
 Package.create([
   { name: 'Try Out', credits: 1, price_cents: 200,
     description: 'Test our cover letter service with one credit to generate a single tailored cover letter.',

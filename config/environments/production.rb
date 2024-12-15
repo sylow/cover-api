@@ -94,4 +94,10 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+
+  config.x.mail_from = %(JobCraftsMan <no-reply@jobcraftsman.com>)
+  config.action_mailer.default_url_options = { host: 'jobcraftsman.com' }
+  config.action_mailer.smtp_settings = { address: ENV['SMS_SMTP_ENDPOINT'], user_name: ENV['SMS_SMTP_USERNAME'], password: ENV['SMS_SMTP_PASSWORD'] }
+  config.action_mailer.raise_delivery_errors = true
 end
